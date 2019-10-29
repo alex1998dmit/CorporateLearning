@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+Auth::routes(['verify' => true]);
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -21,4 +23,14 @@ Route::get('/test', function () {
    return [
        'message' => 'value'
    ];
+});
+
+Route::group([ 'prefix' => 'auth', 'namespace' => 'API' ], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('register', 'AuthController@register');
+
+    Route::group([ 'middleware' => 'auth:api' ], function() {
+        Route::post('logout', 'AuthController@logout');
+        Route::get('about', 'AuthController@about');
+    });
 });

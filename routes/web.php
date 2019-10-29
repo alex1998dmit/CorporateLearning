@@ -12,9 +12,6 @@
 */
 
 Route::get('/', function () {
-    $client = new \GuzzleHttp\Client;
-    $response = $client->get('https://laravel-corporate-learning.herokuapp.com/api/test');
-    dd($response->getBody());
     return view('welcome');
 });
 
