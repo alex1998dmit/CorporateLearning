@@ -34,3 +34,12 @@ Route::group([ 'prefix' => 'auth', 'namespace' => 'API' ], function () {
         Route::get('about', 'AuthController@about');
     });
 });
+
+Route::group([ 'middleware' => 'auth:api' ], function() {
+    // Courses
+   Route::post('courses', 'CourseController@create');
+    // Curators
+   Route::post('curators', 'CuratorController@create');
+    // Students
+    Route::post('students', 'StudentController@create');
+});
