@@ -19,9 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/test', function () {
+Route::get('/test', function (Request $request) {
    return [
-       'message' => 'value'
+       'message' => $request->test_message,
+       'client_secret' => $request->client_secret
    ];
 });
 
