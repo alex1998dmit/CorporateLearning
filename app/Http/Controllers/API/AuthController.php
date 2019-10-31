@@ -30,6 +30,13 @@ class AuthController extends Controller
         }
 
         $https = new \GuzzleHttp\Client;
+        $response = $https->get(env('APP_HOST') . '/oauth/token', [
+            'form_params' => [
+                'client_secret' => env('APP_SECRET'),
+                'message' => $request->test_message
+            ]
+        ]);
+        return $response->getBody();
         $response = $https->post(env('APP_HOST') . '/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
