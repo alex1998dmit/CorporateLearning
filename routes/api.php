@@ -36,11 +36,29 @@ Route::group([ 'prefix' => 'auth', 'namespace' => 'API' ], function () {
     });
 });
 
+// companies
+Route::get('companies/{id}', 'CompaniesController@show');
+
+// curators
+Route::get('curators/{id}', 'CuratorController@single');
+
+// courses
+Route::get('courses/{id}', 'CourseController@show');
+
+
+// auth group
 Route::group([ 'middleware' => 'auth:api' ], function() {
     // Courses
-   Route::post('courses', 'CourseController@create');
+    Route::post('courses', 'CourseController@create');
+    Route::put('courses/{id}', 'CourseController@update');
+    Route::delete('courses/{id}', 'CourseController@delete');
     // Curators
-   Route::post('curators', 'CuratorController@create');
+    Route::post('curators', 'CuratorController@create');
+    Route::delete('curators/{id}', 'CuratorController@delete');
     // Students
     Route::post('students', 'StudentController@create');
+    Route::get('students/{id}', 'StudentsController@single');
+    Route::delete('curators/{id}', 'CuratorController@delete');
+    // Companies
+    Route::get('companies/{id}/courses', 'CompaniesController@showCourses');
 });

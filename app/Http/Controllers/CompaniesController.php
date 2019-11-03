@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Companies;
 use App\Company;
 use Illuminate\Http\Request;
 use Validator;
@@ -75,9 +74,16 @@ class CompaniesController extends Controller
      * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function show(Companies $companies)
+    public function show($company_id)
     {
         //
+        $company = Company::find($company_id);
+        $company->courses->map(function ($course) {
+            $course->students->map(function ($student) {
+                $student->participant;
+            });
+        });
+        return $company;
     }
 
     /**
@@ -86,7 +92,7 @@ class CompaniesController extends Controller
      * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function edit(Companies $companies)
+    public function edit(Company $companies)
     {
         //
     }
@@ -98,7 +104,7 @@ class CompaniesController extends Controller
      * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Companies $companies)
+    public function update(Request $request, Company $companies)
     {
         //
     }
@@ -109,7 +115,7 @@ class CompaniesController extends Controller
      * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Companies $companies)
+    public function destroy(Company $companies)
     {
         //
     }

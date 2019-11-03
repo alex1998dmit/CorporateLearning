@@ -14,4 +14,9 @@ class Student extends Model
     {
         return $this->belongsTo('App\Course');
     }
+
+    public function participant()
+    {
+        return $this->belongsTo('App\Participant');
+    }
 }

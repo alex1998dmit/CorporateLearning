@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Auth;
 use Validator;
 use App\Company;
@@ -67,9 +68,17 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show($course_id)
     {
         //
+        $course = Course::find($course_id);
+        $course->students->map(function ($student) {
+            $student->user = User::find($student->participant->user_id);
+        });
+        $course->curators->map(function ($curator) {
+            $student->user = User::find($student->participant->user_id);
+        });
+        return $course;
     }
 
     /**

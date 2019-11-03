@@ -25,4 +25,9 @@ class Course extends Model
     {
         return $this->hasMany('App\Curator');
     }
+
+    public function blocks()
+    {
+        return $this->hasMany('App\Block');
+    }
 }
